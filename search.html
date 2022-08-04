@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動中心場地借用查詢系統</title>
+</head>
+<body>
+    <h2>活動中心場地借用查詢系統</h2>
+    <form action="./index.html">
+        <input type="submit" value="登記系統" />
+    </form>
+    <br><br>
+    <form action="./search_page.php" method="post" target="_blank">
+        <label for="fname">借用單位:</label>
+        <input type="text" name="department">
+        <br><br>
+        <label for="lname">登記時間:</label>
+        <input type="date" name="check-in_date">　<input type="time" name="check-in_time">
+        <br><br>
+        <label for="lname">借用人:</label>
+        <input type="text" name="user">
+        <br><br>
+        <label for="lname">借用人電話:</label>
+        <input type="text" name="user_number">
+        <br><br>
+        <label for="lname">借用空間:</label>
+        <select name="space">
+            <option>選擇借用空間</option>
+            <option value="1F音樂廳">1F音樂廳</option>
+            <option value="1F文化走廊(左)">1F文化走廊(左)</option>
+            <option value="1F文化走廊(右)">1F文化走廊(右)</option>
+            <option value="1F文化走廊(中)">1F文化走廊(中)</option>
+            <option value="3F會議室">3F會議室</option>
+            <option value="4F公共空間">4F公共空間</option>
+            <option value="4F韻律教室">4F韻律教室</option>
+            <option value="5F公共空間">5F公共空間</option>
+            <option value="6F公共空間">6F公共空間</option>
+            <option value="B1F練習用道場">B1F練習用道場</option>
+        </select>
+        <br><br>
+        <label for="lname">借用時段:</label>
+        <input type="time" name="space_time"> - <input type="time" name="space_time_range">
+        <br><br>
+        <input type="submit" value="查詢">
+    </form>
+</body>
+</html>
