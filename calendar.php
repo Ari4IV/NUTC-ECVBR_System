@@ -27,29 +27,33 @@ echo "<tr height=40px><th width=42>日</th><th width=42>一</th><th width=42>二
 
 $day_count = 1;
 echo "<tr>";
-while ( $blank > 0 ) {
+while ($blank > 0) {
     echo "<td></td>";
     $blank = $blank-1;
     $day_count++;
 }
 
 $day_num = 1;
-while ( $day_num <= $days_in_month ) {
+while ($day_num <= $days_in_month) {
     $selectSql = "SELECT * FROM ecvbr_data";
     $memberData = $connect->query($selectSql);
     $result = '';
     while ($row = $memberData->fetch_assoc()) {
         $timestamp = strtotime($row["check-in_date"]);
+        $timestamp_range = strtotime($row['check-in_date_range']);
         $data_day = date('d', $timestamp);
+        $data_day_range = date('d', $timestamp_range);
         $data_year = date('Y', $timestamp);
         $data_month = date('m', $timestamp);
         if ($data_year == $year) {
             if ($data_month == $month) {
                 if ($data_day == $day_num) {
                     $result = $result.'<br> '.$row['department'].' '.$row['space'].'<br>('.$row['space_time'].' ~ '.$row['space_time_range'].')';
+                } elseif ($data_day <= $day_num && $data_day_range >= $day_num) {
+                    $result = $result.'<br> '.$row['department'].' '.$row['space'].'<br>('.$row['space_time'].' ~ '.$row['space_time_range'].')';
                 }
             }
-        }        
+        }
     }
     echo "<td valign='top' height='111px'>$day_num$result</td>";
     $day_num++;
@@ -60,9 +64,10 @@ while ( $day_num <= $days_in_month ) {
     }
 }
 
-while ( $day_count >1 && $day_count <=7 ) {
+while ($day_count > 1 && $day_count <= 7) {
     echo "<td></td>";
     $day_count++;
 }
 
 echo "</tr></table>";
+?>

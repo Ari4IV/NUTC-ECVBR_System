@@ -71,7 +71,7 @@ $memberData = $connect->query($selectSql);
 while ($row = $memberData->fetch_assoc()) {
 	if ($space == $row["space"]) {
 		if (is_time_cross(strtotime($checkin_date. $space_time), strtotime($checkin_date_range. $space_time_range), strtotime($row["check-in_date"]. $row["space_time"]), strtotime($row["check-in_date_range"]. $row["space_time_range"]))) {
-			echo '<h3>時間日期與'.$row["department"].'重疊</h3>';
+			echo '<h3>登記日期／時間和【'.$row["department"].'】重疊</h3>';
 			$checkpoint = 0;
 		}
 	}
