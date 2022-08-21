@@ -47,6 +47,15 @@ if ($space == '選擇借用空間') {
 	$checkpoint = 0;
 }
 
+function timeInput_errorCheck($beginTime, $endTime) {
+	$timeInput = $endTime - $beginTime;
+	if ($timeInput < 0) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
 function is_time_cross($beginTime1, $endTime1, $beginTime2, $endTime2) {
 	$status = $beginTime2 - $beginTime1;
 	if ($status > 0) {
@@ -66,15 +75,20 @@ function is_time_cross($beginTime1, $endTime1, $beginTime2, $endTime2) {
 	}
 }
 
-$selectSql = "SELECT * FROM ecvbr_data";
-$memberData = $connect->query($selectSql);
-while ($row = $memberData->fetch_assoc()) {
-	if ($space == $row["space"]) {
-		if (is_time_cross(strtotime($checkin_date. $space_time), strtotime($checkin_date_range. $space_time_range), strtotime($row["check-in_date"]. $row["space_time"]), strtotime($row["check-in_date_range"]. $row["space_time_range"]))) {
-			echo '<h3>登記日期／時間和【'.$row["department"].'】重疊</h3>';
-			$checkpoint = 0;
+if (timeInput_errorCheck(strtotime($checkin_date. $space_time), strtotime($checkin_date_range. $space_time_range))) {
+	$selectSql = "SELECT * FROM ecvbr_data";
+	$memberData = $connect->query($selectSql);
+	while ($row = $memberData->fetch_assoc()) {
+		if ($space == $row["space"]) {
+			if (is_time_cross(strtotime($checkin_date. $space_time), strtotime($checkin_date_range. $space_time_range), strtotime($row["check-in_date"]. $row["space_time"]), strtotime($row["check-in_date_range"]. $row["space_time_range"]))) {
+				echo '<h3>登記日期／時間和【'.$row["department"].'】重疊</h3>';
+				$checkpoint = 0;
+			}
 		}
 	}
+} else {
+	echo '<h3>登記日期／時間輸入錯誤</h3>';
+	$checkpoint = 0;
 }
 
 if ($checkpoint == 1) {

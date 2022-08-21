@@ -24,7 +24,7 @@ if ($memberData->num_rows > 0) {
             <th>借用時段</th>
             <th>借用空間</th>
             <th>備註</th>
-            <th></th>
+            <th>管理</th>
         </tr>
         ';
     while ($row = $memberData->fetch_assoc()) {
@@ -37,11 +37,11 @@ if ($memberData->num_rows > 0) {
                 <td>'.$row["space_time"].'~'.$row["space_time_range"].'</td>
                 <td>'.$row["space"].'</td>
                 <td>'.$row["remark"].'</td>
-                <td>
-                    <form action="./delete.php" method="post" target="_blank">
+				<td align="center">
+				    <form action="./delete.php" method="post" target="_blank" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
                     <input type="hidden" name="id" value="'.$row["id"].'">
                     <input type="submit" value="刪除"></form>
-                </td>
+				</td>
             </tr>
             ';
     }

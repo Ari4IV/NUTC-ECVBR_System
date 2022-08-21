@@ -10,6 +10,6 @@ if ($connect->query($insertSql) === TRUE) {
     } else {
     echo "資料刪除錯誤: " . $insertSql . "<br>" . $connect->error;
     }
-
+echo "<script>document.onload = window.close();</script>";
 $connect->close();
 ?>
