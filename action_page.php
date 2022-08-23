@@ -47,9 +47,10 @@ if ($space == '選擇借用空間') {
 	$checkpoint = 0;
 }
 
-function timeInput_errorCheck($beginTime, $endTime) {
+function timeInput_errorCheck($beginTime, $endTime, $end_spaceTime) {
 	$timeInput = $endTime - $beginTime;
-	if ($timeInput < 0) {
+	$space_timeInput = $end_spaceTime - $beginTime;
+	if ($timeInput < 0 OR $space_timeInput < 0) {
 		return false;
 	} else {
 		return true;
@@ -75,7 +76,7 @@ function is_time_cross($beginTime1, $endTime1, $beginTime2, $endTime2) {
 	}
 }
 
-if (timeInput_errorCheck(strtotime($checkin_date. $space_time), strtotime($checkin_date_range. $space_time_range))) {
+if (timeInput_errorCheck(strtotime($checkin_date. $space_time), strtotime($checkin_date_range. $space_time_range), strtotime($checkin_date. $space_time_range))) {
 	$selectSql = "SELECT * FROM ecvbr_data";
 	$memberData = $connect->query($selectSql);
 	while ($row = $memberData->fetch_assoc()) {
